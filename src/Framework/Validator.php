@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Framework;
 
 use Framework\Contracts\RuleInterface;
+use Framework\Exceptions\ValidationException;
 
 class Validator
 {
@@ -32,7 +33,7 @@ class Validator
     }
 
     if (count($errors)) {
-      dd($errors);
+      throw new ValidationException($errors);
     }
   }
 }
