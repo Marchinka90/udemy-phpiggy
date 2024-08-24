@@ -10,7 +10,8 @@
         type="email"
         name="email"
         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-        placeholder="john@example.com" />
+        placeholder="john@example.com"
+        value="<?= e($oldFormData['email']) ?? ''; ?>" />
       <?php if (array_key_exists('email', $errors)) : ?>
         <div class="bg-gray-100 mt-2 p-2 text-red-500">
           <?= e($errors['email'][0]) ?>
@@ -24,7 +25,8 @@
         type="number"
         name="age"
         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-        placeholder="" />
+        placeholder=""
+        value="<?= e($oldFormData['age']) ?? ''; ?>" />
 
       <?php if (array_key_exists('age', $errors)) : ?>
         <div class="bg-gray-100 mt-2 p-2 text-red-500">
@@ -38,9 +40,9 @@
       <select
         name="country"
         class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-        <option value="USA">USA</option>
-        <option value="Canada">Canada</option>
-        <option value="Mexico">Mexico</option>
+        <option value="USA" <?= e($oldFormData['country']) === 'USA' ? 'selected' : ''; ?>>USA</option>
+        <option value="Canada" <?= e($oldFormData['country']) === 'Canada' ? 'selected' : ''; ?>>Canada</option>
+        <option value="Mexico" <?= e($oldFormData['country']) === 'Mexico' ? 'selected' : ''; ?>>Mexico</option>
         <option value="Invalid">Invalid Country</option>
       </select>
 
@@ -57,7 +59,8 @@
         name="socialMediaURL"
         type="text"
         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-        placeholder="" />
+        placeholder=""
+        value="<?= e($oldFormData['socialMediaURL']) ?? ''; ?>" />
 
       <?php if (array_key_exists('socialMediaURL', $errors)) : ?>
         <div class="bg-gray-100 mt-2 p-2 text-red-500">
@@ -102,7 +105,8 @@
             <input
               name="tos"
               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-              type="checkbox" />
+              type="checkbox"
+              <?= $oldFormData['tos'] ?? false ? 'checked' : ''; ?> />
             <span class="ml-2">I accept the terms of service.</span>
           </label>
 
