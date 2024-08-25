@@ -11,7 +11,7 @@
         name="email"
         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         placeholder="john@example.com"
-        value="<?= e($oldFormData['email']) ?? ''; ?>" />
+        value="<?= e($oldFormData['email'] ?? '') ?>" />
       <?php if (array_key_exists('email', $errors)) : ?>
         <div class="bg-gray-100 mt-2 p-2 text-red-500">
           <?= e($errors['email'][0]) ?>
@@ -26,7 +26,7 @@
         name="age"
         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         placeholder=""
-        value="<?= e($oldFormData['age']) ?? ''; ?>" />
+        value="<?= e($oldFormData['age'] ?? '') ?>" />
 
       <?php if (array_key_exists('age', $errors)) : ?>
         <div class="bg-gray-100 mt-2 p-2 text-red-500">
@@ -60,7 +60,7 @@
         type="text"
         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         placeholder=""
-        value="<?= e($oldFormData['socialMediaURL']) ?? ''; ?>" />
+        value="<?= e($oldFormData['socialMediaURL'] ?? '') ?>" />
 
       <?php if (array_key_exists('socialMediaURL', $errors)) : ?>
         <div class="bg-gray-100 mt-2 p-2 text-red-500">

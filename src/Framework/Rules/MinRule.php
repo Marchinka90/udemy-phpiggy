@@ -16,7 +16,7 @@ class MinRule implements RuleInterface
     }
 
     $length = (int) $params[0];
-    return $data[$field] <= $length;
+    return $data[$field] >= $length;
   }
 
   public function getMessage(array $data, string $field, array $params): string
