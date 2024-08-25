@@ -1,20 +1,21 @@
 <?php
 
-$driver = 'mysql';
-$config = http_build_query(data: [
+include __DIR__ . '/src/Framework/Database.php';
+
+use Framework\Database;
+
+$db = new Database('mysql', [
   'host' => 'localhost',
   'port' => 3306,
   'dbname' => 'phpiggy',
-], arg_separator: ';');
+], 'root', '');
 
-$dsn = "{$driver}:{$config}";
-$username = 'root';
-$password = '';
+$search = "Hats";
+$query = "SELECT * FROM products WHERE name=:name";
 
-try {
-  $db = new PDO($dsn, $username, $password);
-} catch (PDOException $e) {
-  die("Unable to connect to database");
-}
+$stmt = $db->connection->prepare($query);
+$stmt->bindValue('name', $search, PDO::PARAM_STR);
 
-echo 'Connected to database';
+$stmt->execute();
+
+var_dump($stmt->fetchAll(PDO::FETCH_ASSOC));
