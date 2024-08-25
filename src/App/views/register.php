@@ -40,9 +40,9 @@
       <select
         name="country"
         class="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-        <option value="USA" <?= e($oldFormData['country']) === 'USA' ? 'selected' : ''; ?>>USA</option>
-        <option value="Canada" <?= e($oldFormData['country']) === 'Canada' ? 'selected' : ''; ?>>Canada</option>
-        <option value="Mexico" <?= e($oldFormData['country']) === 'Mexico' ? 'selected' : ''; ?>>Mexico</option>
+        <option value="USA" <?= ($oldFormData['country'] ?? '') === 'USA' ? 'selected' : ''; ?>>USA</option>
+        <option value="Canada" <?= ($oldFormData['country'] ?? '') === 'Canada' ? 'selected' : ''; ?>>Canada</option>
+        <option value="Mexico" <?= ($oldFormData['country'] ?? '') === 'Mexico' ? 'selected' : ''; ?>>Mexico</option>
         <option value="Invalid">Invalid Country</option>
       </select>
 
