@@ -6,6 +6,7 @@ namespace App\Services;
 
 use Framework\Database;
 use Framework\Exceptions\ValidationException;
+use App\Config\Paths;
 
 class ReceiptService
 {
@@ -29,7 +30,7 @@ class ReceiptService
 
     $originalFileName = $file['name'];
 
-    if (!preg_match('^/[A-zz-Z0-9\s._-]+$/', $originalFileName)) {
+    if (!preg_match('/^[A-Za-z0-9\s._-]+$/', $originalFileName)) {
       throw new ValidationException([
         'receipt' => ['Invalid filename']
       ]);
@@ -45,76 +46,17 @@ class ReceiptService
     }
   }
 
-  // public function getUserTransactions(int $length, int $offset)
-  // {
-  //   $searchTerm = addcslashes($_GET['s'] ?? '', '%_');
-  //   $params = [
-  //     ':user_id' => $_SESSION['user'],
-  //     ':description' => "%{$searchTerm}%"
-  //   ];
+  public function upload(array $file)
+  {
+    $fileExtention = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $newFilename = bin2hex(random_bytes(16)) . "." . $fileExtention;
 
-  //   $transactions = $this->db->query(
-  //     "SELECT *, DATE_FORMAT(date, '%Y-%m-%d') as formatted_date 
-  //     FROM transactions 
-  //     WHERE user_id = :user_id
-  //     AND description LIKE :description
-  //     LIMIT {$length} OFFSET {$offset}",
-  //     $params
-  //   )->findAll();
+    $uploadPath = Paths::STORAGE_UPLOADS . "/" . $newFilename;
 
-  //   $transactionCount = $this->db->query(
-  //     "SELECT COUNT(*)
-  //     FROM transactions 
-  //     WHERE user_id = :user_id
-  //     AND description LIKE :description",
-  //     $params
-  //   )->count();
-
-  //   return [$transactions, $transactionCount];
-  // }
-
-  // public function getUserTransaction(string $id)
-  // {
-  //   return $this->db->query(
-  //     "SELECT *, DATE_FORMAT(date, '%Y-%m-%d') as formatted_date  
-  //     FROM transactions 
-  //     WHERE user_id = :user_id AND id = :id",
-  //     [
-  //       'id' => $id,
-  //       'user_id' => $_SESSION['user']
-  //     ]
-  //   )->find();
-  // }
-
-  // public function update(array $formData, int $id)
-  // {
-  //   $formattedDate = "{$formData['date']} 00:00:00";
-
-  //   $this->db->query(
-  //     "UPDATE transactions
-  //     SET description = :description, 
-  //       amount = :amount, 
-  //       date = :date
-  //     WHERE id = :id
-  //     AND user_id = :user_id",
-  //     [
-  //       'description' => $formData['description'],
-  //       'amount' => $formData['amount'],
-  //       'user_id' => $_SESSION['user'],
-  //       'date' => $formattedDate,
-  //       'id' => $id
-  //     ]
-  //   );
-  // }
-
-  // public function delete(int $id)
-  // {
-  //   $this->db->query(
-  //     "DELETE FROM transactions WHERE id = :id AND user_id = :user_id",
-  //     [
-  //       'id' => $id,
-  //       'user_id' => $_SESSION['user']
-  //     ]
-  //   );
-  // }
+    if (!move_uploaded_file($file['tmp_name'], $uploadPath)) {
+      throw new ValidationException([
+        'receipt' => ['Failed to upload file']
+      ]);
+    }
+  }
 }
