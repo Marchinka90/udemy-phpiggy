@@ -38,7 +38,7 @@ class ReceiptController
 
     $this->receiptService->ValidateFile($receiptFile);
 
-    $this->receiptService->upload($receiptFile);
+    $this->receiptService->upload($receiptFile, $transaction['id']);
 
     redirectTo("/");
   }
